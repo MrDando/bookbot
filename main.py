@@ -3,6 +3,7 @@ def main():
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     char_count = count_characters(text)
+    generate_report(char_count, num_words)
 
 
 def get_num_words(text):
@@ -27,4 +28,22 @@ def count_characters(text):
 
     return char_count
 
+def generate_report(char_count, num_words):
+    char_list = []
+
+    for key in char_count:
+        char_list.append({"key": key, "num": char_count[key]})
+
+    def sort_on(dict):
+        return dict["num"]
+    
+
+    char_list.sort(reverse=True, key=sort_on)
+    
+    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"{num_words} words found in the document \n")
+
+    for char in char_list:
+        print(f"The '{char['key']}' was found {char['num']} times")
+    
 main()
